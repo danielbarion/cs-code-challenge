@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consuming RESTful API data</title>
+
+  <script>
+    let canShowMoreInformation = false
+    let data = []
+    let filteredData = []
+  </script>
+</head>
+<body>
+  <main></main>
+
+  <script id="entry-template" type="text/x-handlebars-template">
+    <button onclick="switchShowInformation()">Show more informations</button>
+    <ul class="people_list">
+      {{#each people}}
+      <li>
+        {{#if avatar}}
+          <img src="{{this.avatar}}" alt="avatar of " />
+        {{/if}}
+
+        {{#if id}}
+        <span>#{{this.id}}</span>
+        {{/if}}
+
+        <span>
+          | {{this.name}}
+        </span>
+
+        {{#if createdAt}}
+        <span>
+          | {{newDate this.createdAt}}
+        </span>
+        {{/if}}
+      </li>
+      {{/each}}
+    </ul>
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script>
+    Handlebars.registerHelper('newDate', function (aString) {
+      return new Date(aString).toLocaleString()
+    })
+
+    const source = document.getElementById("entry-template").innerHTML;
+    const template = Handlebars.compile(source);
+
+    const renderHtml = (data) => {
+
+      const html = template({ people: data });
+      const mainElement = document.querySelector('main')
+      mainElement.innerHTML = html
+    }
+
+    const switchShowInformation = () => {
+      canShowMoreInformation = !canShowMoreInformation
+
+      if (canShowMoreInformation) {
+        renderHtml(data)
+      } else {
+        renderHtml(filteredData)
+      }
+    }
+
+    const getData = async () => fetch('https://5dc588200bbd050014fb8ae1.mockapi.io/assessment')
+      .then(function (response) {
+        return response.json();
+      })
+
+    const initialize = async () => {
+      data = await getData()
+      filteredData = JSON.parse(JSON.stringify(data)).map(item => {
+        delete item.id
+        delete item.createdAt
+
+        return {...item}
+      })
+
+      renderHtml(filteredData)
+    }
+
+    initialize();
+  </script>
+</body>
+</html>
