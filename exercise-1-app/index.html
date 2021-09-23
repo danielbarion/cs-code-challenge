@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script id="entry-template" type="text/x-handlebars-template">
+      <button id="switchShowInformationButton">Show more informations</button>
+      <ul class="people_list">
+        {{#each people}}
+        <li>
+          {{#if avatar}}
+            <img src="{{this.avatar}}" alt="avatar of " />
+          {{/if}}
+
+          {{#if id}}
+          <span>#{{this.id}}</span>
+          {{/if}}
+
+          <span>
+            | {{this.name}}
+          </span>
+
+          {{#if createdAt}}
+          <span>
+            | {{newDate this.createdAt}}
+          </span>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ul>
+    </script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
