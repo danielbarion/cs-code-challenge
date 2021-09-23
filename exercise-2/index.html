@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo list App</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div class="container">
+    <p>
+      <label id="new-task-label" for="new-task" style="display: block; margin: 0 0 20px">
+        <b>Add Item</b>
+      </label>
+      <form id="new-task-form">
+        <input id="new-task" type="text" required>
+        <button id="new-task-button">Add</button>
+      </form>
+    </p>
+
+    <h3>
+      <b>Todo</b>
+    </h3>
+    <ul id="incomplete-tasks">
+    </ul>
+
+    <h3>
+      <b>Completed</b>
+    </h3>
+    <ul id="completed-tasks">
+    </ul>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
